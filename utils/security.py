@@ -53,3 +53,4 @@ def client_ip():
 
 def sanitized_user_agent():
     return (request.headers.get("User-Agent") or "unknown")[:255]
+    
