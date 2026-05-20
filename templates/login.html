@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Login | Cyber Secure Login{% endblock %}
+{% block content %}
+<section class="auth-shell"><div class="auth-panel">
+  <p class="eyebrow">Welcome back</p><h1>Sign in to your account</h1>
+  <p class="text-secondary">Access your secure dashboard and continue managing your profile with confidence.</p>
+  <form method="post" novalidate>{{ form.hidden_tag() }}
+    <div class="mb-3">{{ form.email.label(class="form-label") }}{{ form.email(class="form-control", placeholder="name@example.com", autocomplete="email") }}{% for error in form.email.errors %}<div class="form-error">{{ error }}</div>{% endfor %}</div>
+    <div class="mb-3">{{ form.password.label(class="form-label") }}<div class="input-group">{{ form.password(class="form-control password-field", placeholder="Enter your password", autocomplete="current-password") }}<button class="btn btn-outline-secondary toggle-password" type="button" aria-label="Show password"><i class="bi bi-eye"></i></button></div>{% for error in form.password.errors %}<div class="form-error">{{ error }}</div>{% endfor %}</div>
+    <div class="d-flex justify-content-between align-items-center mb-4"><div class="form-check">{{ form.remember(class="form-check-input") }}{{ form.remember.label(class="form-check-label") }}</div><a href="{{ url_for('auth.forgot_password') }}" class="link-info">Forgot password?</a></div>
+    {{ form.submit(class="btn btn-primary w-100 py-2") }}
+  </form><p class="mt-4 mb-0 text-secondary">Don&apos;t have an account? <a href="{{ url_for('auth.register') }}">Create one now</a></p>
+</div></section>{% endblock %}

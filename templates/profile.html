@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Profile | Cyber Secure Login{% endblock %}
+{% block content %}
+<section class="content-panel profile-panel">
+  <div class="d-flex flex-column flex-md-row justify-content-between gap-3 align-items-md-start">
+    <div>
+      <p class="eyebrow">User profile</p>
+      <h1>{{ current_user.username }}</h1>
+      <p class="text-secondary mb-0">{{ current_user.email }}</p>
+    </div>
+    <form method="post" action="{{ url_for('auth.logout') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button class="btn btn-danger" type="submit"><i class="bi bi-box-arrow-right me-2"></i>Logout</button>
+    </form>
+  </div>
+  <hr>
+  <div class="d-flex flex-column flex-md-row justify-content-between gap-3 align-items-md-center">
+    <div>
+      <h2 class="h5">Two-factor authentication</h2>
+      <p class="text-secondary mb-0">Add an authenticator app to require a one-time code whenever you sign in.</p>
+    </div>
+    {% if current_user.is_totp_enabled %}
+      <form method="post" action="{{ url_for('dashboard.disable_2fa') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="btn btn-outline-danger" type="submit">Disable 2FA</button>
+      </form>
+    {% else %}
+      <a class="btn btn-primary" href="{{ url_for('dashboard.setup_2fa') }}">Enable 2FA</a>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
